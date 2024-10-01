@@ -37,6 +37,10 @@ function loadQuestion() {
     resetState();
     const currentQuestion = quizData[currentQuestionIndex];
     
+    // Dynamically change the title to show the current question number
+    const quizTitle = document.querySelector('h1');
+    quizTitle.textContent = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+    
     // Show question
     questionContainer.textContent = currentQuestion.question;
     
