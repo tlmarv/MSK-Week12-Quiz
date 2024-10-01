@@ -33,6 +33,11 @@ const scoreContainer = document.getElementById("score-container");
 // Load the first question
 loadQuestion();
 
+document.addEventListener('DOMContentLoaded', function() {
+    // Load the first question once the DOM is fully loaded
+    loadQuestion();
+});
+
 function loadQuestion() {
     resetState();
     const currentQuestion = quizData[currentQuestionIndex];
