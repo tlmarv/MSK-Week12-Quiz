@@ -33,19 +33,10 @@ const scoreContainer = document.getElementById("score-container");
 // Load the first question
 loadQuestion();
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Load the first question once the DOM is fully loaded
-    loadQuestion();
-});
-
 function loadQuestion() {
     resetState();
     const currentQuestion = quizData[currentQuestionIndex];
-    
-    // Dynamically change the title to show the current question number
-    const quizTitle = document.querySelector('h1');
-    quizTitle.textContent = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
-    
+        
     // Show question
     questionContainer.textContent = currentQuestion.question;
     
