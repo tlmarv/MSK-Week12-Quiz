@@ -85,7 +85,8 @@ function selectAnswer(selectedIndex) {
             button.style.backgroundColor = "gray"; // Neutral for unselected options
         }
     });
-   
+}
+
 // Close the modal when the user clicks the close button
 document.getElementById("close-modal").onclick = function() {
     document.getElementById("explanation-modal").style.display = "none";
@@ -105,17 +106,16 @@ function showScore() {
     questionContainer.classList.add("hidden");
     choicesContainer.classList.add("hidden");
     nextButton.classList.add("hidden");
-    explanationContainer.classList.add("hidden");
     
     scoreContainer.classList.remove("hidden");
     scoreContainer.textContent = `Your score: ${score} out of ${quizData.length}`;
 }
 
 function resetState() {
-    explanationContainer.textContent = "";
     nextButton.classList.add("hidden");
     choicesContainer.innerHTML = "";
     document.body.style.backgroundColor = ""; // Reset background color
+    document.getElementById("explanation-modal").style.display = "none"; // Hide the modal
 }
 
 // Event listener for the next button
