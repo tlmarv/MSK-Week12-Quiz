@@ -81,9 +81,6 @@ function selectAnswer(selectedIndex) {
             button.style.backgroundColor = "gray"; // Neutral for unselected options
         }
     });
-    
-    isExplanationShown = true;
-    nextButton.classList.remove("hidden");
 }
     
 function nextQuestion() {
