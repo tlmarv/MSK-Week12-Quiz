@@ -59,12 +59,16 @@ function selectAnswer(selectedIndex) {
     // Check if the correct answer is chosen
     if (selectedIndex === currentQuestion.correctAnswer) {
         score++;
-        explanationContainer.textContent = "Correct! " + currentQuestion.explanation;
+        document.getElementById('modal-text').textContent = "Correct! " + currentQuestion.explanation;
         document.body.style.backgroundColor = "green"; // Change background to green if correct
     } else {
-        explanationContainer.textContent = "Incorrect. " + currentQuestion.explanation;
+        document.getElementById('modal-text').textContent = "Incorrect. " + currentQuestion.explanation;
         document.body.style.backgroundColor = "red"; // Change background to red if incorrect
     }
+    
+    // Show the modal
+    const modal = document.getElementById("explanation-modal");
+    modal.style.display = "block";
 
     isExplanationShown = true;
     nextButton.classList.remove("hidden");
@@ -81,6 +85,10 @@ function selectAnswer(selectedIndex) {
             button.style.backgroundColor = "gray"; // Neutral for unselected options
         }
     });
+   
+// Close the modal when the user clicks the close button
+document.getElementById("close-modal").onclick = function() {
+    document.getElementById("explanation-modal").style.display = "none";
 }
     
 function nextQuestion() {
