@@ -60,17 +60,27 @@ function selectAnswer(selectedIndex) {
     if (selectedIndex === currentQuestion.correctAnswer) {
         score++;
         explanationContainer.textContent = "Correct! " + currentQuestion.explanation;
+        document.body.style.backgroundColor = "green"; // Change background to green if correct
     } else {
         explanationContainer.textContent = "Incorrect. " + currentQuestion.explanation;
+        document.body.style.backgroundColor = "red"; // Change background to red if incorrect
     }
 
     isExplanationShown = true;
     nextButton.classList.remove("hidden");
 
-    // Disable choices after answering
+    // Disable choices and change button colors
     const buttons = choicesContainer.querySelectorAll("button");
-    buttons.forEach(button => button.disabled = true);
-}
+    buttons.forEach((button, index) => {
+        button.disabled = true;
+        if (index === currentQuestion.correctAnswer) {
+            button.style.backgroundColor = "green"; // Highlight the correct answer
+        } else if (index === selectedIndex) {
+            button.style.backgroundColor = "red"; // Highlight the incorrect selected answer
+        } else {
+            button.style.backgroundColor = "gray"; // Neutral for unselected options
+        }
+    });
 
 function nextQuestion() {
     currentQuestionIndex++;
@@ -96,6 +106,7 @@ function resetState() {
     explanationContainer.textContent = "";
     nextButton.classList.add("hidden");
     choicesContainer.innerHTML = "";
+    document.body.style.backgroundColor = ""; // Reset background color
 }
 
 // Event listener for the next button
