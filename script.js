@@ -1,10 +1,16 @@
 // Quiz questions and answers
 const quizData = [
     {
-        question: "What is the capital of France?",
-        choices: ["Berlin", "Madrid", "Paris", "Rome"],
-        correctAnswer: 2,
-        explanation: "The capital of France is Paris."
+       question: "A 27-year-old woman comes to the office for counseling prior to conception. She states that a friend recently delivered a newborn with a neural tube defect and she wants to decrease her risk for having a child with this condition. She has no history of major medical illness and takes no medications. Physical examination shows no abnormalities. It is most appropriate to recommend that this patient begin supplementation with a vitamin that is a cofactor in which of the following processes?",
+        choices: [
+            "Biosynthesis of nucleotides",
+            "Protein gamma glutamate carboxylation",
+            "Scavenging of free radicals",
+            "Transketolation",
+            "Triglyceride lipolysis"
+        ],
+        correctAnswer: 0, // The correct answer index (in this case, "Biosynthesis of nucleotides")
+        explanation: "Folate supplementation is recommended to reduce the risk of neural tube defects, as folate is a cofactor in nucleotide biosynthesis."
     },
     {
         question: "Who wrote 'To Kill a Mockingbird'?",
