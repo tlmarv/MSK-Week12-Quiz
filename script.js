@@ -1410,6 +1410,7 @@ const questionContainer = document.getElementById("question-container");
 const choicesContainer = document.getElementById("choices-container");
 const explanationContainer = document.getElementById("explanation");
 const nextButton = document.getElementById("next-btn");
+const prevButton = document.getElementById("prev-btn");
 const scoreContainer = document.getElementById("score-container");
 
 // Load the first question
@@ -1433,6 +1434,16 @@ function loadQuestion() {
         button.addEventListener("click", () => selectAnswer(index));
         choicesContainer.appendChild(button);
     });
+
+    if (currentQuestionIndex > 0) {
+        prevButton.classList.remove("hidden");
+    } else {
+        prevButton.classList.add("hidden");
+    }
+
+    if (isExplanationShown) {
+        nextButton.classList.remove("hidden");
+    }
 }
 
 function selectAnswer(selectedIndex) {
@@ -1484,6 +1495,13 @@ function nextQuestion() {
     }
 }
 
+function prevQuestion() {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        loadQuestion();
+    }
+}
+
 function showScore() {
     questionContainer.classList.add("hidden");
     choicesContainer.classList.add("hidden");
@@ -1495,6 +1513,7 @@ function showScore() {
 
 function resetState() {
     nextButton.classList.add("hidden");
+    prevButton.classList.add("hidden");
     choicesContainer.innerHTML = "";
     document.body.style.backgroundColor = ""; // Reset background color
     document.getElementById("explanation-modal").style.display = "none"; // Hide the modal
@@ -1506,4 +1525,8 @@ nextButton.addEventListener("click", () => {
         isExplanationShown = false;
         nextQuestion();
     }
+});
+
+prevButton.addEventListener("click", () => {
+    prevQuestion();
 });
