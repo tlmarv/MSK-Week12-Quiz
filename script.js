@@ -1,5 +1,5 @@
 // Quiz questions and answers
-const quizData = [
+let allQuizData = [
 {
     question: "A 50-year-old woman presents with poorly controlled diabetes despite multiple visits to healthcare providers and adherence to prescribed medications. Upon reviewing her case, you learn she lives in a low-income neighborhood with limited access to fresh foods and a safe environment for exercise. Which of the following best explains how her social context is affecting her health outcomes?",
     choices: [
@@ -1402,9 +1402,28 @@ const quizData = [
 }
 ];
 
+let quizData = [];
 let currentQuestionIndex = 0;
 let score = 0;
 let isExplanationShown = false;
+
+// Function to shuffle the array
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+// Function to select 60 random questions
+function selectRandomQuestions() {
+    shuffle(allQuizData); // Shuffle the full question list
+    quizData = allQuizData.slice(0, 60); // Select the first 60 questions
+}
+
+// Load random questions when the app starts
+selectRandomQuestions();
 
 const questionContainer = document.getElementById("question-container");
 const choicesContainer = document.getElementById("choices-container");
@@ -1419,15 +1438,12 @@ loadQuestion();
 function loadQuestion() {
     resetState();
     const currentQuestion = quizData[currentQuestionIndex];
-        
-    // Dynamically change the title to show the current question number
+
     const quizTitle = document.querySelector('h1');
     quizTitle.textContent = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
     
-    // Show question
     questionContainer.textContent = currentQuestion.question;
-    
-    // Show choices
+
     currentQuestion.choices.forEach((choice, index) => {
         const button = document.createElement("button");
         button.textContent = choice;
@@ -1448,46 +1464,41 @@ function loadQuestion() {
 
 function selectAnswer(selectedIndex) {
     const currentQuestion = quizData[currentQuestionIndex];
-    
-    // Check if the correct answer is chosen
+
     if (selectedIndex === currentQuestion.correctAnswer) {
         score++;
         document.getElementById('modal-text').textContent = "Correct! " + currentQuestion.explanation;
-        document.body.style.backgroundColor = "green"; // Change background to green if correct
+        document.body.style.backgroundColor = "green";
     } else {
         document.getElementById('modal-text').textContent = "Incorrect. " + currentQuestion.explanation;
-        document.body.style.backgroundColor = "red"; // Change background to red if incorrect
+        document.body.style.backgroundColor = "red";
     }
-    
-    // Show the modal
+
     const modal = document.getElementById("explanation-modal");
     modal.style.display = "block";
 
     isExplanationShown = true;
     nextButton.classList.remove("hidden");
 
-    // Disable choices and change button colors
     const buttons = choicesContainer.querySelectorAll("button");
     buttons.forEach((button, index) => {
         button.disabled = true;
         if (index === currentQuestion.correctAnswer) {
-            button.style.backgroundColor = "green"; // Highlight the correct answer
+            button.style.backgroundColor = "green";
         } else if (index === selectedIndex) {
-            button.style.backgroundColor = "red"; // Highlight the incorrect selected answer
+            button.style.backgroundColor = "red";
         } else {
-            button.style.backgroundColor = "gray"; // Neutral for unselected options
+            button.style.backgroundColor = "gray";
         }
     });
 }
 
-// Close the modal when the user clicks the close button
 document.getElementById("close-modal").onclick = function() {
     document.getElementById("explanation-modal").style.display = "none";
-}
-    
+};
+
 function nextQuestion() {
     currentQuestionIndex++;
-    
     if (currentQuestionIndex < quizData.length) {
         loadQuestion();
     } else {
@@ -1506,20 +1517,19 @@ function showScore() {
     questionContainer.classList.add("hidden");
     choicesContainer.classList.add("hidden");
     nextButton.classList.add("hidden");
-    
     scoreContainer.classList.remove("hidden");
     scoreContainer.textContent = `Your score: ${score} out of ${quizData.length}`;
 }
 
 function resetState() {
+    explanationContainer.textContent = "";
     nextButton.classList.add("hidden");
     prevButton.classList.add("hidden");
     choicesContainer.innerHTML = "";
-    document.body.style.backgroundColor = ""; // Reset background color
-    document.getElementById("explanation-modal").style.display = "none"; // Hide the modal
+    document.body.style.backgroundColor = "";
+    document.getElementById("explanation-modal").style.display = "none";
 }
 
-// Event listener for the next button
 nextButton.addEventListener("click", () => {
     if (isExplanationShown) {
         isExplanationShown = false;
