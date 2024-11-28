@@ -1419,7 +1419,7 @@ function shuffle(array) {
 // Function to select 60 random questions
 function selectRandomQuestions() {
     shuffle(allQuizData); // Shuffle the full question list
-    quizData = allQuizData.slice(0, 60); // Select the first 60 questions
+    quizData = allQuizData.slice(0, orderedData.length); // Select the first 60 questions
 }
 
 // Load random questions when the app starts
